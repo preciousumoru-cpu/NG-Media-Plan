@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jumia Smart Media Plan Builder 2026</title>
+  <style>
+    :root {
+      --jumia-orange: #F68B1E;
+      --jumia-orange-hover: #E0770D;
+      --navy-header: #073763;
+      --navy-dark: #0B2545;
+      --navy-light: #1F497D;
+      --onsite-bg: #8EA9DB;
+      --onsite-border: #41719C;
+      --display-bg: #C6E0B4;
+      --display-border: #548235;
+      --crm-bg: #FFE699;
+      --crm-border: #BF8F00;
+      --spon-bg: #D9D2E9;
+      --spon-border: #8E7CC3;
+      --pom-bg: #F8CBAD;
+      --pom-border: #C65911;
+      --brandday-bg: #D5A6BD;
+      --text-dark: #222222;
+      --border-gray: #D9D9D9;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: #F8F9FA; color: var(--text-dark); padding: 18px 24px; line-height: 1.45; }
+    
+    /* Header */
+    .header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-header) 100%); color: white; padding: 18px 24px; border-radius: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 14px rgba(0,0,0,0.12); flex-wrap: wrap; gap: 12px; }
+    .header h1 { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .header h1 span { color: var(--jumia-orange); }
+    .header p { font-size: 12.5px; opacity: 0.88; margin-top: 3px; }
+    .header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-action { background: var(--jumia-orange); color: white; border: none; padding: 8px 14px; font-size: 12px; font-weight: 700; border-radius: 6px; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 6px rgba(246,139,30,0.3); display: flex; align-items: center; gap: 6px; }
+    .btn-action:hover { background: var(--jumia-orange-hover); transform: translateY(-1px); }
+    .btn-secondary { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: white; box-shadow: none; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.25); }
+
+    /* Layout */
+    .grid-container { display: grid; grid-template-columns: 360px 1fr; gap: 20px; }
+    @media (max-width: 1200px) { .grid-container { grid-template-columns: 1fr; } }
+
+    /* Cards */
+    .card { background: white; border-radius: 10px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid var(--border-gray); margin-bottom: 18px; }
+    .card h2 { font-size: 13.5px; font-weight: 700; color: var(--navy-header); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #EEF2F7; text-transform: uppercase; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center; }
+
+    /* Form Controls */
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 11.5px; font-weight: 600; color: #444; margin-bottom: 4px; }
+    .form-control { width: 100%; padding: 7px 10px; font-size: 12.5px; border: 1px solid #CCC; border-radius: 6px; outline: none; background: #FAFAFA; transition: 0.2s; }
+    .form-control:focus { border-color: var(--jumia-orange); background: white; box-shadow: 0 0 0 2px rgba(246,139,30,0.15); }
+    
+    .currency-toggle { display: flex; border: 1px solid #CCC; border-radius: 6px; overflow: hidden; margin-bottom: 12px; }
+    .currency-toggle button { flex: 1; padding: 6px; font-size: 11.5px; font-weight: 700; border: none; background: #F0F0F0; cursor: pointer; transition: 0.2s; }
+    .currency-toggle button.active { background: var(--navy-header); color: white; }
+
+    /* Checkboxes */
+    .checkbox-group { display: flex; flex-direction: column; gap: 6px; background: #FDFDFD; padding: 8px 10px; border: 1px solid #E5E5E5; border-radius: 6px; margin-bottom: 10px; }
+    .checkbox-item { display: flex; align-items: flex-start; gap: 7px; font-size: 11.5px; cursor: pointer; }
+    .checkbox-item input[type="checkbox"] { margin-top: 2px; accent-color: var(--jumia-orange); width: 14px; height: 14px; cursor: pointer; }
+
+    /* Accordions */
+    .accordion-toggle { font-size: 11.5px; font-weight: 700; color: var(--navy-light); cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 7px 9px; background: #F0F4FA; border-radius: 6px; border: 1px solid #D9E2EC; margin-bottom: 8px; }
+    .accordion-content { background: #FCFCFD; border: 1px solid #E5E9F0; border-radius: 6px; padding: 8px 10px; display: none; margin-bottom: 12px; max-height: 200px; overflow-y: auto; font-size: 11px; }
+
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+    th { background-color: var(--navy-header); color: white; font-weight: 600; padding: 8px 9px; font-size: 11px; text-transform: uppercase; }
+    td { padding: 7px 9px; border-bottom: 1px solid #E5E5E5; vertical-align: middle; }
+
+    .tbl-input-budget { width: 105px; padding: 4px 6px; font-size: 11.5px; font-weight: 700; border: 1px solid #B0C4DE; border-radius: 4px; text-align: right; }
+    .tbl-input-duration { width: 55px; padding: 4px; font-size: 11px; font-weight: 600; border: 1px solid #B0C4DE; border-radius: 4px; text-align: center; }
+    .tbl-select-units { width: 95px; padding: 3px 5px; font-size: 11px; font-weight: 600; border: 1px solid #B0C4DE; border-radius: 4px; }
+
+    /* Tags */
+    .tag { display: inline-block; padding: 2px 6px; border-radius: 4px; font-size: 9.5px; font-weight: 700; }
+    .tag-onsite { background: var(--onsite-bg); color: #07294D; }
+    .tag-display { background: var(--display-bg); color: #1E4612; }
+    .tag-crm { background: var(--crm-bg); color: #664D00; }
+    .tag-spon { background: var(--spon-bg); color: #351C75; }
+
+    /* Gantt */
+    .gantt-scroll { overflow-x: auto; margin-top: 6px; }
+    .gantt-table th, .gantt-table td { text-align: center; padding: 5px 6px; min-width: 26px; font-size: 10.5px; }
+    .gantt-table td.active-day { background-color: #8EA9DB; color: #073763; font-weight: bold; }
+
+    /* ==============================================================
+       TWO-PAGE PRINT / EXPORT SHEET PRESENTATION STYLES
+       ============================================================== */
+    #export-document-view {
+      display: none;
+      background: white;
+      color: #000;
+      font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    }
+
+    .doc-page {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto 30px auto;
+      background: white;
+      padding: 24px;
+      border: 1px solid #CCC;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      page-break-after: always;
+    }
+
+    /* Excel Screenshot Replicating Style (Page 1) */
+    .excel-sheet-header {
+      font-size: 13px;
+      font-weight: bold;
+      color: #000;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .meta-briefing-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      border: 1px solid #B0B0B0;
+    }
+    .meta-briefing-table td {
+      border: 1px solid #D0D0D0;
+      padding: 5px 8px;
+      font-size: 11px;
+    }
+    .meta-briefing-table td.field-label {
+      font-weight: bold;
+      width: 180px;
+      background-color: #F2F2F2;
+      color: #000;
+    }
+    .meta-briefing-table td.field-val {
+      font-weight: 600;
+      color: #0B3C68;
+    }
+
+    .excel-grid-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1.5px solid #000;
+      font-size: 11px;
+    }
+    .excel-grid-table th {
+      border: 1px solid #777;
+      padding: 6px 8px;
+      text-align: left;
+      font-weight: bold;
+      font-size: 10.5px;
+    }
+    .excel-grid-table td {
+      border: 1px solid #777;
+      padding: 5px 8px;
+      vertical-align: middle;
+      font-size: 10.5px;
+    }
+
+    /* Exact Screenshot Colors */
+    .bg-row-onsite { background-color: #8EA9DB !important; color: #000; font-weight: 500; }
+    .bg-row-display { background-color: #C6E0B4 !important; color: #000; font-weight: 500; }
+    .bg-row-crm { background-color: #FFE699 !important; color: #000; font-weight: 500; }
+    .bg-row-brandday { background-color: #D5A6BD !important; color: #000; font-weight: 500; }
+    .bg-row-pom { background-color: #F8CBAD !important; color: #000; font-weight: 500; }
+    .bg-row-spon { background-color: #D9D2E9 !important; color: #000; font-weight: 500; }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .header, .grid-container, .modal-overlay, .footer { display: none !important; }
+      #export-document-view { display: block !important; }
+      .doc-page { border: none; box-shadow: none; margin: 0; padding: 12mm 15mm; max-width: 100%; width: 100%; page-break-after: always; }
+      @page { size: landscape; margin: 8mm; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- APP INTERFACE HEADER -->
+  <div class="header">
+    <div>
+      <h1><span>JUMIA</span> Advertising &bull; Smart Media Plan Builder 2026</h1>
+      <p>Continuous Machine Learning Memory &bull; Discrete Rate Card Enforcement &bull; 2-Page Executive Document Generator</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-action" style="background:#073763; border:1px solid #548235;" onclick="triggerTwoPagePDF()">&#128442; Generate 2-Page Client Document / PDF</button>
+      <button class="btn-action" onclick="exportExcelHtml()">&#11015; Export Excel (.XLS)</button>
+      <button class="btn-action btn-secondary" onclick="exportPlanCSV()">Export CSV</button>
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <!-- LEFT PANEL: CONTROLS & BRIEF -->
+    <div>
+      <div class="card">
+        <h2>Campaign Configuration</h2>
+
+        <!-- Partner Memory Suggestion Box -->
+        <div id="memory-banner" class="memory-banner" style="background:#EBF8FF; border:1px solid #BEE3F8; border-radius:6px; padding:10px; margin-bottom:12px; display:none;">
+          <strong style="color:#2C5282;">&#129504; Partner History Recognized</strong>
+          <span id="memory-desc" style="font-size:11px; color:#2B6CB0;">Found previous campaign preferences.</span>
+          <br>
+          <button style="background:#3182CE; color:white; border:none; padding:3px 8px; font-size:10.5px; font-weight:700; border-radius:4px; cursor:pointer; margin-top:5px;" onclick="applyPartnerMemory()">Apply Past Proven Settings</button>
+        </div>
+
+        <!-- Currency Toggle -->
+        <div class="form-group">
+          <label>Campaign Currency</label>
+          <div class="currency-toggle">
+            <button id="curr-ngn" class="active" onclick="setCurrency('NGN')">₦ NGN</button>
+            <button id="curr-usd" onclick="setCurrency('USD')">$ USD</button>
+          </div>
+        </div>
+
+        <!-- Briefing Fields -->
+        <div class="form-group">
+          <label>Campaign Title / Theme</label>
+          <input type="text" id="campaign-title" class="form-control" value="Brand Days Activation (Q2 Mega Push)" oninput="calculatePlan()">
+        </div>
+
+        <div class="form-group">
+          <label>Brand / Partner Name</label>
+          <input type="text" id="brand-name" class="form-control" value="Official AKT Store" oninput="onBrandChange()">
+        </div>
+
+        <div class="form-group">
+          <label>Target Audience Description</label>
+          <input type="text" id="target-audience" class="form-control" value="Homepage broad audience, past buyers, cart abandoners 18-45" oninput="calculatePlan()">
+        </div>
+
+        <!-- Comprehensive Jumia Categories + Custom Manual Entry -->
+        <div class="form-group">
+          <label>Category</label>
+          <select id="brand-cat" class="form-control" onchange="onCategoryChange()">
+            <option value="Home & Office">Home &amp; Office / Kitchen &amp; Living</option>
+            <option value="Health & Beauty">Health &amp; Beauty</option>
+            <option value="Supermarket & Groceries">Supermarket &amp; Groceries (FMCG)</option>
+            <option value="Phones & Tablets">Phones &amp; Tablets</option>
+            <option value="Electronics (TV & Audio)">Electronics (TV &amp; Audio, Generators)</option>
+            <option value="Appliances">Large &amp; Small Domestic Appliances</option>
+            <option value="Computing & Laptops">Computing &amp; Laptops</option>
+            <option value="Fashion & Apparel">Fashion &amp; Apparel (Men, Women, Kids)</option>
+            <option value="Baby Products & Toys">Baby Products &amp; Toys</option>
+            <option value="Gaming & Consoles">Gaming &amp; Consoles</option>
+            <option value="Sporting Goods & Fitness">Sporting Goods &amp; Fitness</option>
+            <option value="Automobile & Industrial">Automobile &amp; Industrial</option>
+            <option value="manual_custom">&#9997; Other / Enter Custom Category...</option>
+          </select>
+          <div id="custom-cat-container" style="display:none; margin-top:5px;">
+            <input type="text" id="custom-cat-input" class="form-control" placeholder="Type custom category..." oninput="calculatePlan()">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Top Competitors (For Conquest PDP Ads)</label>
+          <input type="text" id="brand-competitors" class="form-control" value="Binatone, Century, OX, Qasa" oninput="calculatePlan()">
+        </div>
+
+        <div class="form-group">
+          <label>Hero Focus SKUs</label>
+          <input type="text" id="focus-skus" class="form-control" value="AKT Standing Fan 16', Rechargeable Solar Mist Fan" oninput="calculatePlan()">
+        </div>
+
+        <!-- Budget & Duration -->
+        <div class="form-group">
+          <label id="budget-label">Total Campaign Budget (₦ NGN)</label>
+          <input type="number" id="campaign-budget" class="form-control" value="1400000" step="50000" oninput="calculatePlan()">
+        </div>
+
+        <div class="form-group">
+          <label>Campaign Maximum Duration: <strong id="duration-val">30</strong> Days</label>
+          <input type="range" id="campaign-duration" min="3" max="30" value="30" style="width:100%" oninput="updateDuration(this.value)">
+        </div>
+
+        <!-- MULTI-GOAL SELECTION -->
+        <div class="form-group">
+          <label>Partner Goals (Select All That Apply)</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox" id="goal-sales" checked onchange="calculatePlan()">
+              <span><strong>Sales Uplift</strong> (Conversions, SKU deals, high ROAS)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="goal-consideration" checked onchange="calculatePlan()">
+              <span><strong>Consideration &amp; Intent</strong> (PDP visits, search clicks)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="goal-awareness" onchange="calculatePlan()">
+              <span><strong>Awareness &amp; Equity</strong> (Homepage sliders, mass reach)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Commercial Event -->
+        <div class="form-group">
+          <label>Calendar Event / Window</label>
+          <select id="event-type" class="form-control" onchange="calculatePlan()">
+            <option value="BAU Month">Standard BAU Month</option>
+            <option value="Jumia Tech Week (Tier 1 Mega)">March - Jumia Tech Week (Tier 1 Mega)</option>
+            <option value="Jumia Anniversary (Tier 1 Mega)">June - Jumia Anniversary (Tier 1 Mega)</option>
+            <option value="Black Friday Festival (Tier 1 Super)">November - Black Friday Festival (Tier 1 Super)</option>
+            <option value="Valentine's Day (Tier 2)">February - Valentine's Day (Tier 2)</option>
+            <option value="Easter & Eid Sale (Tier 2)">April - Easter &amp; Eid Sale (Tier 2)</option>
+            <option value="Back to School (Tier 2)">August - Back to School (Tier 2)</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: PLAN OUTPUTS -->
+    <div>
+      <!-- KPI SUMMARY CARDS -->
+      <div class="kpi-row" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:10px; margin-bottom:15px;">
+        <div class="card" style="padding:12px; margin-bottom:0;">
+          <div style="font-size:10.5px; text-transform:uppercase; font-weight:700; color:#666;">Total Allocated</div>
+          <div id="kpi-budget" style="font-size:18px; font-weight:800; color:#073763; margin-top:2px;">₦1,400,000</div>
+          <div id="kpi-budget-status" style="font-size:10.5px; color:#2E7D32; font-weight:600; margin-top:2px;">✔ Reconciled</div>
+        </div>
+        <div class="card" style="padding:12px; margin-bottom:0;">
+          <div style="font-size:10.5px; text-transform:uppercase; font-weight:700; color:#666;">Est. Impressions</div>
+          <div id="kpi-impressions" style="font-size:18px; font-weight:800; color:#073763; margin-top:2px;">0</div>
+          <div style="font-size:10.5px; color:#555; margin-top:2px;">Total Ad Views</div>
+        </div>
+        <div class="card" style="padding:12px; margin-bottom:0;">
+          <div style="font-size:10.5px; text-transform:uppercase; font-weight:700; color:#666;">Est. Clicks</div>
+          <div id="kpi-clicks" style="font-size:18px; font-weight:800; color:#073763; margin-top:2px;">0</div>
+          <div style="font-size:10.5px; color:#555; margin-top:2px;">Visits to Brand &amp; SKUs</div>
+        </div>
+        <div class="card" style="padding:12px; margin-bottom:0;">
+          <div style="font-size:10.5px; text-transform:uppercase; font-weight:700; color:#666;">Blended CTR</div>
+          <div id="kpi-ctr" style="font-size:18px; font-weight:800; color:#073763; margin-top:2px;">0.00%</div>
+          <div style="font-size:10.5px; color:#2E7D32; font-weight:600; margin-top:2px;">Benchmark Met</div>
+        </div>
+      </div>
+
+      <!-- MAIN MEDIA PLAN TABLE -->
+      <div class="card">
+        <h2>
+          <span>Recommended Channel &amp; Placement Allocation</span>
+          <button class="btn-action btn-secondary" style="color:#073763; border-color:#CBD5E1; padding:3px 8px; font-size:10px;" onclick="resetAllToAuto()">&#8635; Reset Edits</button>
+        </h2>
+        <div style="overflow-x: auto;">
+          <table id="plan-table">
+            <thead>
+              <tr>
+                <th>Channel</th>
+                <th>Placement</th>
+                <th>Strategic Objective</th>
+                <th>Rate Card</th>
+                <th>Units</th>
+                <th style="text-align:center">Duration</th>
+                <th style="text-align:right">Allocated Budget</th>
+                <th style="text-align:right">Est. Impr</th>
+                <th style="text-align:right">Est. Clicks</th>
+                <th>Mode</th>
+              </tr>
+            </thead>
+            <tbody id="plan-tbody"></tbody>
+            <tfoot>
+              <tr style="background:#073763; color:white; font-weight:bold;">
+                <td colspan="6" style="text-align:right; padding:8px;">TOTAL:</td>
+                <td id="foot-budget" style="text-align:right; padding:8px;">₦0</td>
+                <td id="foot-impressions" style="text-align:right; padding:8px;">0</td>
+                <td id="foot-clicks" style="text-align:right; padding:8px;">0</td>
+                <td style="padding:8px; font-size:10px;">Reconciled</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- DAILY FLIGHTING GANTT -->
+      <div class="card">
+        <h2>Daily Flighting &amp; Execution Schedule</h2>
+        <div class="gantt-scroll">
+          <table class="gantt-table" id="gantt-table">
+            <thead id="gantt-thead"></thead>
+            <tbody id="gantt-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       TWO-PAGE PRINT / PDF DOCUMENT VIEW (EXACT EXCEL REPLICATION)
+       ============================================================== -->
+  <div id="export-document-view">
+    
+    <!-- PAGE 1: CAMPAIGN ARCHITECTURE & RATE CARD (REPLICATES SCREENSHOT 1) -->
+    <div class="doc-page">
+      <div class="excel-sheet-header">JUMIA ADVERTISING &bull; CAMPAIGN BRIEF &amp; OFFICIAL RATE CARD SPECIFICATIONS</div>
+      
+      <!-- Top Meta Block (A1:I10) -->
+      <table class="meta-briefing-table">
+        <tr>
+          <td class="field-label">Campaign</td>
+          <td class="field-val" id="doc-p1-campaign">BAU Month</td>
+          <td class="field-label">Target Audience</td>
+          <td class="field-val" id="doc-p1-audience" colspan="3">Homepage broad audience, active buyers</td>
+        </tr>
+        <tr>
+          <td class="field-label">Brand Days Activation</td>
+          <td class="field-val" id="doc-p1-brand">Official AKT Store</td>
+          <td class="field-label">Category</td>
+          <td class="field-val" id="doc-p1-category" colspan="3">Home &amp; Office</td>
+        </tr>
+        <tr>
+          <td class="field-label">Creatives</td>
+          <td class="field-val" id="doc-p1-creatives">Co-branded banners, product feeds</td>
+          <td class="field-label">Competitors</td>
+          <td class="field-val" id="doc-p1-competitors" colspan="3">Binatone, Century, OX, Qasa</td>
+        </tr>
+        <tr>
+          <td class="field-label">Budget</td>
+          <td class="field-val" id="doc-p1-budget" style="font-size:12px; font-weight:bold; color:#073763;">₦1,400,000</td>
+          <td class="field-label">Focus SKU</td>
+          <td class="field-val" id="doc-p1-sku" colspan="3">AKT Standing Fan 16', Solar Mist Fan</td>
+        </tr>
+      </table>
+
+      <!-- Full Channel Catalog Grid Matching Screenshot 1 Color Rows -->
+      <div style="font-weight:bold; font-size:12px; margin-bottom:6px; color:#000;">Campaign plan &amp; budget for the month (Master 2026 Reference)</div>
+      <table class="excel-grid-table">
+        <thead style="background:#073763; color:white;">
+          <tr>
+            <th style="width:110px;">Channel</th>
+            <th style="width:140px;">Sub-channel</th>
+            <th style="width:150px;">Placement</th>
+            <th style="width:90px;">Objective</th>
+            <th>Targeting</th>
+            <th style="width:90px;">Landing Page</th>
+            <th style="width:85px; text-align:center;">Historical CTR</th>
+            <th style="width:95px; text-align:center;">Unit Rate</th>
+            <th style="width:95px; text-align:right;">Unit Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Onsite Homepage Banners -->
+          <tr class="bg-row-onsite">
+            <td rowspan="5" style="font-weight:bold; vertical-align:middle; text-align:center; background:#8EA9DB;">Onsite</td>
+            <td rowspan="3" style="background:#A6BCE2; vertical-align:middle;">Homepage</td>
+            <td>Slider 4</td>
+            <td>Awareness</td>
+            <td rowspan="2">Homepage broad audience</td>
+            <td>MLP</td>
+            <td style="text-align:center;">0.42%</td>
+            <td style="text-align:center;">1 day</td>
+            <td style="text-align:right;">₦975,000</td>
+          </tr>
+          <tr class="bg-row-onsite">
+            <td>Single Banner</td>
+            <td>Awareness</td>
+            <td>MLP</td>
+            <td style="text-align:center;">0.55%</td>
+            <td style="text-align:center;">1 day</td>
+            <td style="text-align:right;">₦420,000</td>
+          </tr>
+          <tr class="bg-row-onsite">
+            <td>Product floor</td>
+            <td>Sales</td>
+            <td>Top deals on homepage</td>
+            <td>Product page</td>
+            <td style="text-align:center;">0.70%</td>
+            <td style="text-align:center;">3 day</td>
+            <td style="text-align:right;">₦525,000</td>
+          </tr>
+          <!-- Onsite Category -->
+          <tr class="bg-row-onsite">
+            <td rowspan="2" style="background:#A6BCE2; vertical-align:middle;">Category</td>
+            <td>Single Banner</td>
+            <td>Intent</td>
+            <td>Category Page Aisle</td>
+            <td>MLP</td>
+            <td style="text-align:center;">1.03%</td>
+            <td style="text-align:center;">1 week</td>
+            <td style="text-align:right;">₦420,000</td>
+          </tr>
+          <tr class="bg-row-onsite">
+            <td>Product Floor</td>
+            <td>Sales</td>
+            <td>Category Page Aisle</td>
+            <td>Product Page</td>
+            <td style="text-align:center;">0.89%</td>
+            <td style="text-align:center;">1 week</td>
+            <td style="text-align:right;">₦210,000</td>
+          </tr>
+
+          <!-- Display Banners (Green Rows) -->
+          <tr class="bg-row-display">
+            <td rowspan="4" style="font-weight:bold; vertical-align:middle; text-align:center; background:#C6E0B4;">Display Ads</td>
+            <td>Product Detail Page</td>
+            <td>Product Page Top</td>
+            <td>Sales</td>
+            <td>Top competitors &amp; Cross-selling</td>
+            <td>Product Page</td>
+            <td style="text-align:center;">1.63%</td>
+            <td style="text-align:center;">Impressions</td>
+            <td style="text-align:right;">₦3,750</td>
+          </tr>
+          <tr class="bg-row-display">
+            <td>Search Page</td>
+            <td>Search Page Top</td>
+            <td>Sales</td>
+            <td>Historical top search terms</td>
+            <td>MLP</td>
+            <td style="text-align:center;">1.99%</td>
+            <td style="text-align:center;">Impressions</td>
+            <td style="text-align:right;">₦3,750</td>
+          </tr>
+          <tr class="bg-row-display">
+            <td>Audience Buying</td>
+            <td>Audience Targeted</td>
+            <td>Intent</td>
+            <td>Shoppers with brand interest</td>
+            <td>MLP</td>
+            <td style="text-align:center;">1.51%</td>
+            <td style="text-align:center;">Impressions</td>
+            <td style="text-align:right;">₦2,250</td>
+          </tr>
+          <tr class="bg-row-display">
+            <td>Checkout page</td>
+            <td>Checkout page</td>
+            <td>Sales</td>
+            <td>Targeting shoppers at order success</td>
+            <td>MLP</td>
+            <td style="text-align:center;">4.94%</td>
+            <td style="text-align:center;">Impressions</td>
+            <td style="text-align:right;">₦5,250</td>
+          </tr>
+
+          <!-- CRM (Cream / Amber Rows) -->
+          <tr class="bg-row-crm">
+            <td rowspan="3" style="font-weight:bold; vertical-align:middle; text-align:center; background:#FFE699;">CRM</td>
+            <td>Newsletter SKU Insertion</td>
+            <td>SKU Insertion</td>
+            <td>Sales</td>
+            <td>All subscribed users (5M+ database)</td>
+            <td>Product Page</td>
+            <td style="text-align:center;">0.28%</td>
+            <td style="text-align:center;">Per Insertion</td>
+            <td style="text-align:right;">₦210,000</td>
+          </tr>
+          <tr class="bg-row-crm">
+            <td>In-app notifications</td>
+            <td>App Pop-up</td>
+            <td>Sales</td>
+            <td>All active App Users</td>
+            <td>MLP</td>
+            <td style="text-align:center;">4.87%</td>
+            <td style="text-align:center;">1 Day</td>
+            <td style="text-align:right;">₦600,000</td>
+          </tr>
+          <tr class="bg-row-crm">
+            <td>Push notifications</td>
+            <td>App Push Blast</td>
+            <td>Sales</td>
+            <td>Users with intent in last 30 days</td>
+            <td>MLP</td>
+            <td style="text-align:center;">1.83%</td>
+            <td style="text-align:center;">Per Experiment</td>
+            <td style="text-align:right;">₦525,000</td>
+          </tr>
+
+          <!-- Brand Day & POM -->
+          <tr class="bg-row-brandday">
+            <td style="font-weight:bold; text-align:center;">Brand Day</td>
+            <td>Website take over</td>
+            <td>Onsite &amp; Offsite</td>
+            <td>Full Funnel</td>
+            <td>All Jumia Visitors (100% Share)</td>
+            <td>MLP</td>
+            <td style="text-align:center;">N/A</td>
+            <td style="text-align:center;">1 day</td>
+            <td style="text-align:right;">₦5,000,000</td>
+          </tr>
+          <tr class="bg-row-pom">
+            <td style="font-weight:bold; text-align:center;">POM (Offsite)</td>
+            <td>Meta + Tiktok + PMAX</td>
+            <td>Tiered Customer Audiences</td>
+            <td>Sales</td>
+            <td>Users interacted with category</td>
+            <td>MLP</td>
+            <td style="text-align:center;">3.64%</td>
+            <td style="text-align:center;">CPM</td>
+            <td style="text-align:right;">₦936</td>
+          </tr>
+          <!-- Sponsored Ads Row -->
+          <tr class="bg-row-spon">
+            <td style="font-weight:bold; text-align:center;">Sponsored Ads</td>
+            <td>Mirakl Sponsored Products</td>
+            <td>Hero SKU Top Search &amp; Cat</td>
+            <td>Sales</td>
+            <td>High intent catalog shoppers</td>
+            <td>Product Page</td>
+            <td style="text-align:center;">2.50%</td>
+            <td style="text-align:center;">CPC Bid</td>
+            <td style="text-align:right;">₦75</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PAGE 2: RECOMMENDED MEDIA PLAN & GANTT FLIGHTING SCHEDULE -->
+    <div class="doc-page">
+      <div class="excel-sheet-header">JUMIA ADVERTISING &bull; RECOMMENDED PARTNER MEDIA PLAN &amp; FLIGHTING SCHEDULE</div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div style="font-size:12px; font-weight:bold; color:#073763;">
+          Partner: <span id="doc-p2-brand">Official AKT Store</span> &bull; Budget: <span id="doc-p2-budget">₦1,400,000</span>
+        </div>
+        <div style="font-size:11px; color:#555;">
+          Window: <span id="doc-p2-event">BAU Month</span> &bull; Flight: <span id="doc-p2-duration">30 Days</span>
+        </div>
+      </div>
+
+      <!-- Allocated Plan Table -->
+      <table class="excel-grid-table" style="margin-bottom:20px;">
+        <thead style="background:#073763; color:white;">
+          <tr>
+            <th>Channel</th>
+            <th>Placement</th>
+            <th>Objective</th>
+            <th>Rate Card</th>
+            <th style="text-align:center;">Booked Units</th>
+            <th style="text-align:center;">Duration</th>
+            <th style="text-align:right;">Allocated Budget</th>
+            <th style="text-align:right;">Est. Impressions</th>
+            <th style="text-align:right;">Est. Clicks</th>
+          </tr>
+        </thead>
+        <tbody id="doc-p2-tbody">
+          <!-- Dynamically populated from active calculated plan -->
+        </tbody>
+        <tfoot>
+          <tr style="background:#073763; color:white; font-weight:bold;">
+            <td colspan="6" style="text-align:right; padding:6px 8px;">TOTAL RECONCILED INVESTMENT:</td>
+            <td id="doc-p2-tot-budget" style="text-align:right; padding:6px 8px;">₦0</td>
+            <td id="doc-p2-tot-imps" style="text-align:right; padding:6px 8px;">0</td>
+            <td id="doc-p2-tot-clicks" style="text-align:right; padding:6px 8px;">0</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <!-- Daily Gantt Flighting Matrix -->
+      <div style="font-weight:bold; font-size:11.5px; margin-bottom:6px; color:#000;">
+        Daily Activation &amp; Campaign Flighting Grid (<span id="doc-p2-gantt-label">30</span> Days)
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="excel-grid-table" style="text-align:center; font-size:9.5px;" id="doc-p2-gantt-table">
+          <thead id="doc-p2-gantt-thead" style="background:#1F497D; color:white;"></thead>
+          <tbody id="doc-p2-gantt-tbody"></tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:25px; display:flex; justify-content:space-between; font-size:11px; border-top:1px solid #CCC; padding-top:10px;">
+        <div><strong>Prepared by:</strong> Jumia Advertising SVS Operations</div>
+        <div><strong>Partner Sign-off:</strong> _____________________________</div>
+        <div><strong>Date:</strong> _____________________________</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Jumia Advertising Media Plan Builder &bull; Sourced from Official 2026 Rate Card &bull; Discrete Units &amp; Duration Pacing Engine
+  </div>
+
+  <script>
+    let currentCurrency = 'NGN';
+    const FX_RATE = 1500;
+
+    // MASTER CATALOG
+    const DEFAULT_CATALOG = [
+      { id: 'hp_slider', channel: 'Onsite', tag: 'tag-onsite', placement: 'Homepage Slider (Slot 3/4)', obj: 'Awareness', rateNGN: 975000, rateUSD: 650, unitLabel: '1 Day', unitType: 'fixed', unitDays: 1, ctr: 0.0042, baseImpsPerUnit: 250000, minBudgetRequiredNGN: 3800000, scores: { sales: 2, consideration: 4, awareness: 10 } },
+      { id: 'hp_floor', channel: 'Onsite', tag: 'tag-onsite', placement: 'Homepage Product Floor', obj: 'Sales Uplift', rateNGN: 525000, rateUSD: 350, unitLabel: '3 Days', unitType: 'fixed', unitDays: 3, ctr: 0.0070, baseImpsPerUnit: 350000, minBudgetRequiredNGN: 2000000, scores: { sales: 9, consideration: 5, awareness: 5 } },
+      { id: 'cat_banner', channel: 'Onsite', tag: 'tag-onsite', placement: 'Category Single Banner', obj: 'Consideration', rateNGN: 420000, rateUSD: 280, unitLabel: '1 Week', unitType: 'fixed', unitDays: 7, ctr: 0.0103, baseImpsPerUnit: 120000, minBudgetRequiredNGN: 1000000, scores: { sales: 4, consideration: 9, awareness: 6 } },
+      { id: 'cat_floor', channel: 'Onsite', tag: 'tag-onsite', placement: 'Category Product Floor', obj: 'Sales Uplift', rateNGN: 210000, rateUSD: 140, unitLabel: '1 Week', unitType: 'fixed', unitDays: 7, ctr: 0.0089, baseImpsPerUnit: 100000, minBudgetRequiredNGN: 600000, scores: { sales: 8, consideration: 6, awareness: 3 } },
+      { id: 'inapp_popup', channel: 'CRM / App', tag: 'tag-crm', placement: 'In-App Pop-up & Notification', obj: 'Sales Uplift', rateNGN: 600000, rateUSD: 400, unitLabel: '1 Day', unitType: 'fixed', unitDays: 1, ctr: 0.0150, baseImpsPerUnit: 300000, minBudgetRequiredNGN: 1800000, scores: { sales: 9, consideration: 7, awareness: 6 } },
+      { id: 'crm_push', channel: 'CRM', tag: 'tag-crm', placement: 'App Push Notification', obj: 'Sales Uplift', rateNGN: 525000, rateUSD: 350, unitLabel: '1 Experiment', unitType: 'fixed', unitDays: 1, ctr: 0.0103, baseImpsPerUnit: 500000, minBudgetRequiredNGN: 1800000, scores: { sales: 9, consideration: 5, awareness: 4 } },
+      { id: 'crm_nl_sku', channel: 'CRM', tag: 'tag-crm', placement: 'Newsletter SKU Insertion', obj: 'Sales Uplift', rateNGN: 210000, rateUSD: 140, unitLabel: '1 Insertion', unitType: 'fixed', unitDays: 1, ctr: 0.0039, baseImpsPerUnit: 180000, minBudgetRequiredNGN: 500000, scores: { sales: 7, consideration: 5, awareness: 2 } },
+      { id: 'disp_search', channel: 'Display Ads', tag: 'tag-display', placement: 'Search Display Banner', obj: 'Consideration & Intent', rateNGN: 3750, rateUSD: 2.5, unitLabel: 'CPM', unitType: 'flexible', ctr: 0.0199, minBudgetRequiredNGN: 0, scores: { sales: 8, consideration: 10, awareness: 4 } },
+      { id: 'disp_pdp', channel: 'Display Ads', tag: 'tag-display', placement: 'Competitor PDP Banner', obj: 'Consideration & Sales', rateNGN: 3750, rateUSD: 2.5, unitLabel: 'CPM', unitType: 'flexible', ctr: 0.0163, minBudgetRequiredNGN: 0, scores: { sales: 9, consideration: 8, awareness: 3 } },
+      { id: 'spon_brand', channel: 'Sponsored Ads', tag: 'tag-spon', placement: 'Sponsored Brands Header Banner', obj: 'Intent & Brand Equity', rateNGN: 3750, rateUSD: 2.5, unitLabel: 'CPM', unitType: 'flexible', ctr: 0.0180, minBudgetRequiredNGN: 0, scores: { sales: 8, consideration: 9, awareness: 8 } },
+      { id: 'disp_checkout', channel: 'Display Ads', tag: 'tag-display', placement: 'Checkout Success Banner', obj: 'Sales Uplift', rateNGN: 4950, rateUSD: 3.3, unitLabel: 'CPM', unitType: 'flexible', ctr: 0.0494, minBudgetRequiredNGN: 0, scores: { sales: 8, consideration: 4, awareness: 1 } },
+      { id: 'spon_products', channel: 'Sponsored Ads', tag: 'tag-spon', placement: 'Sponsored Products (Catalog PPC)', obj: 'Sales Uplift', rateNGN: 75, rateUSD: 0.05, unitLabel: 'CPC Bid', unitType: 'flexible', ctr: 0.0250, minBudgetRequiredNGN: 0, scores: { sales: 10, consideration: 5, awareness: 1 } }
+    ];
+
+    let userOverrides = {};
+    let currentCalculatedRows = [];
+
+    function resetAllToAuto() {
+      userOverrides = {};
+      calculatePlan();
+    }
+
+    function onCategoryChange() {
+      const sel = document.getElementById('brand-cat').value;
+      document.getElementById('custom-cat-container').style.display = sel === 'manual_custom' ? 'block' : 'none';
+      calculatePlan();
+    }
+
+    function getEffectiveCategory() {
+      const sel = document.getElementById('brand-cat').value;
+      if (sel === 'manual_custom') {
+        return document.getElementById('custom-cat-input').value.trim() || 'Custom Category';
+      }
+      return sel;
+    }
+
+    function setCurrency(curr) {
+      if (currentCurrency === curr) return;
+      const bInput = document.getElementById('campaign-budget');
+      let val = parseFloat(bInput.value) || 0;
+      if (curr === 'USD') {
+        val = Math.round(val / FX_RATE);
+        document.getElementById('curr-usd').classList.add('active');
+        document.getElementById('curr-ngn').classList.remove('active');
+        document.getElementById('budget-label').innerText = 'Total Campaign Budget ($ USD)';
+      } else {
+        val = Math.round(val * FX_RATE);
+        document.getElementById('curr-ngn').classList.add('active');
+        document.getElementById('curr-usd').classList.remove('active');
+        document.getElementById('budget-label').innerText = 'Total Campaign Budget (₦ NGN)';
+      }
+      currentCurrency = curr;
+      bInput.value = val;
+      calculatePlan();
+    }
+
+    function updateDuration(val) {
+      document.getElementById('duration-val').innerText = val;
+      calculatePlan();
+    }
+
+    function fmtMoney(val) {
+      if (currentCurrency === 'USD') return '$' + Math.round(val).toLocaleString();
+      return '₦' + Math.round(val).toLocaleString();
+    }
+
+    function onBrandChange() {
+      calculatePlan();
+    }
+
+    function onUserBudgetChange(channelId, inputElem) {
+      if (!userOverrides[channelId]) userOverrides[channelId] = {};
+      userOverrides[channelId].budget = parseFloat(inputElem.value) || 0;
+      userOverrides[channelId].lockedBudget = true;
+      calculatePlan();
+    }
+
+    function onUserUnitsChange(channelId, selectElem) {
+      if (!userOverrides[channelId]) userOverrides[channelId] = {};
+      userOverrides[channelId].units = parseInt(selectElem.value) || 0;
+      userOverrides[channelId].lockedUnits = true;
+      calculatePlan();
+    }
+
+    function onUserDurationChange(channelId, inputElem) {
+      if (!userOverrides[channelId]) userOverrides[channelId] = {};
+      userOverrides[channelId].duration = parseInt(inputElem.value) || 1;
+      calculatePlan();
+    }
+
+    function toggleLock(channelId) {
+      if (userOverrides[channelId]) delete userOverrides[channelId];
+      calculatePlan();
+    }
+
+    function calculatePlan() {
+      const rawBudget = parseFloat(document.getElementById('campaign-budget').value) || 0;
+      const duration = parseInt(document.getElementById('campaign-duration').value) || 30;
+
+      const goalSales = document.getElementById('goal-sales').checked;
+      const goalConsideration = document.getElementById('goal-consideration').checked;
+      const goalAwareness = document.getElementById('goal-awareness').checked;
+
+      let activeGoals = [];
+      if (goalSales) activeGoals.push('sales');
+      if (goalConsideration) activeGoals.push('consideration');
+      if (goalAwareness) activeGoals.push('awareness');
+      if (activeGoals.length === 0) activeGoals = ['sales'];
+
+      const scoredCatalog = DEFAULT_CATALOG.map(ch => {
+        let tot = 0;
+        activeGoals.forEach(g => { tot += ch.scores[g] || 4; });
+        return { ...ch, priority: tot / activeGoals.length };
+      });
+
+      let fixedChannels = scoredCatalog.filter(c => c.unitType === 'fixed');
+      let flexibleChannels = scoredCatalog.filter(c => c.unitType === 'flexible');
+
+      fixedChannels.sort((a, b) => b.priority - a.priority);
+      flexibleChannels.sort((a, b) => b.priority - a.priority);
+
+      let allocatedRows = [];
+      let lockedSpent = 0;
+
+      // Handle user locked overrides
+      scoredCatalog.forEach(ch => {
+        const override = userOverrides[ch.id];
+        if (override) {
+          if (ch.unitType === 'fixed' && override.lockedUnits !== undefined) {
+            const unitCost = currentCurrency === 'USD' ? ch.rateUSD : ch.rateNGN;
+            lockedSpent += unitCost * override.units;
+          } else if (override.lockedBudget) {
+            lockedSpent += override.budget;
+          }
+        }
+      });
+
+      let unlockedRemainingBudget = Math.max(0, rawBudget - lockedSpent);
+      const minFlexShare = duration >= 14 ? 0.35 : 0.20;
+      const maxFixedBudget = unlockedRemainingBudget * (1.0 - minFlexShare);
+      let autoFixedSpent = 0;
+
+      // Allocate Fixed Channels in exact units
+      fixedChannels.forEach(fc => {
+        const unitCost = currentCurrency === 'USD' ? fc.rateUSD : fc.rateNGN;
+        const minReq = currentCurrency === 'USD' ? fc.minBudgetRequiredNGN / FX_RATE : fc.minBudgetRequiredNGN;
+        const override = userOverrides[fc.id];
+
+        let units = 0;
+        let isLocked = false;
+
+        if (override && override.lockedUnits !== undefined) {
+          units = override.units;
+          isLocked = true;
+        } else {
+          if (rawBudget >= minReq && unitCost <= rawBudget * 0.35 && (autoFixedSpent + unitCost) <= maxFixedBudget) {
+            units = 1;
+            if (fc.unitLabel.includes('Week') && duration >= 14 && (autoFixedSpent + unitCost * 2) <= maxFixedBudget && fc.priority >= 7) {
+              units = 2;
+            }
+            autoFixedSpent += unitCost * units;
+          }
+        }
+
+        if (units > 0) {
+          const lineCost = unitCost * units;
+          const imps = fc.baseImpsPerUnit * units;
+          const clicks = Math.round(imps * fc.ctr);
+          const channelDays = Math.min(duration, units * fc.unitDays);
+
+          allocatedRows.push({
+            ...fc,
+            isLocked: isLocked,
+            unitsBooked: units,
+            bookedVolumeLabel: `${units} ${fc.unitLabel}`,
+            displayRate: `${fmtMoney(unitCost)} / ${fc.unitLabel}`,
+            allocatedBudget: lineCost,
+            estImps: imps,
+            estClicks: clicks,
+            effectiveDuration: channelDays,
+            activeDays: Array.from({length: channelDays}, (_, i) => i + 1)
+          });
+        }
+      });
+
+      // Flexible channels balance
+      const totalFixedAllocated = allocatedRows.reduce((sum, r) => sum + r.allocatedBudget, 0);
+      let balanceForFlexible = Math.max(0, rawBudget - totalFixedAllocated);
+
+      let unlockedFlexChannels = flexibleChannels.filter(fl => !(userOverrides[fl.id] && userOverrides[fl.id].lockedBudget));
+      let flexibleLockedSpent = flexibleChannels.reduce((sum, fl) => sum + (userOverrides[fl.id]?.lockedBudget ? userOverrides[fl.id].budget : 0), 0);
+      let poolForUnlockedFlex = Math.max(0, balanceForFlexible - flexibleLockedSpent);
+      let totFlexPriority = unlockedFlexChannels.reduce((sum, c) => sum + c.priority, 0);
+
+      flexibleChannels.forEach(fl => {
+        const override = userOverrides[fl.id];
+        const rate = currentCurrency === 'USD' ? fl.rateUSD : fl.rateNGN;
+        let flBudget = 0;
+        let isLocked = false;
+        let customDuration = override?.duration || duration;
+
+        if (override && override.lockedBudget) {
+          flBudget = override.budget;
+          isLocked = true;
+        } else {
+          const share = unlockedFlexChannels.length > 0 ? (fl.priority / (totFlexPriority || 1)) : 0;
+          flBudget = Math.round(poolForUnlockedFlex * share);
+        }
+
+        if (flBudget > 0 || isLocked) {
+          let imps = fl.unitLabel === 'CPM' ? Math.round((flBudget / rate) * 1000) : Math.round(flBudget / rate);
+          let clicks = fl.unitLabel === 'CPM' ? Math.round(imps * fl.ctr) : Math.round(imps * fl.ctr);
+
+          allocatedRows.push({
+            ...fl,
+            isLocked: isLocked,
+            unitsBooked: null,
+            bookedVolumeLabel: `${customDuration} Days (Paced)`,
+            displayRate: `${fmtMoney(rate)} / ${fl.unitLabel}`,
+            allocatedBudget: flBudget,
+            estImps: imps,
+            estClicks: clicks,
+            effectiveDuration: customDuration,
+            activeDays: Array.from({length: customDuration}, (_, i) => i + 1)
+          });
+        }
+      });
+
+      // Reconcile rounding
+      const finalAllocatedTotal = allocatedRows.reduce((sum, r) => sum + r.allocatedBudget, 0);
+      const diff = rawBudget - finalAllocatedTotal;
+      if (diff !== 0 && unlockedFlexChannels.length > 0) {
+        const topFlex = allocatedRows.find(r => r.unitType === 'flexible' && !r.isLocked);
+        if (topFlex) {
+          topFlex.allocatedBudget += diff;
+          const rate = currentCurrency === 'USD' ? topFlex.rateUSD : topFlex.rateNGN;
+          if (topFlex.unitLabel === 'CPM') {
+            topFlex.estImps = Math.round((topFlex.allocatedBudget / rate) * 1000);
+            topFlex.estClicks = Math.round(topFlex.estImps * topFlex.ctr);
+          } else {
+            topFlex.estClicks = Math.round(topFlex.allocatedBudget / rate);
+            topFlex.estImps = Math.round(topFlex.estClicks / topFlex.ctr);
+          }
+        }
+      }
+
+      currentCalculatedRows = allocatedRows;
+
+      // Update KPI
+      const totalBudgetSpent = allocatedRows.reduce((sum, r) => sum + r.allocatedBudget, 0);
+      const totalImpressions = allocatedRows.reduce((sum, r) => sum + r.estImps, 0);
+      const totalClicks = allocatedRows.reduce((sum, r) => sum + r.estClicks, 0);
+      const avgCtr = totalImpressions > 0 ? ((totalClicks / totalImpressions) * 100).toFixed(2) + '%' : '0.00%';
+
+      document.getElementById('kpi-budget').innerText = fmtMoney(totalBudgetSpent);
+      document.getElementById('kpi-impressions').innerText = totalImpressions.toLocaleString();
+      document.getElementById('kpi-clicks').innerText = totalClicks.toLocaleString();
+      document.getElementById('kpi-ctr').innerText = avgCtr;
+
+      // Render App Table
+      renderAppTable(allocatedRows, duration, totalBudgetSpent, totalImpressions, totalClicks);
+      renderGantt(allocatedRows, duration);
+
+      // Populate 2-Page Document View (for PDF / Print)
+      populateTwoPageDocument(allocatedRows, duration, totalBudgetSpent, totalImpressions, totalClicks);
+    }
+
+    function renderAppTable(rows, duration, totalBudgetSpent, totalImpressions, totalClicks) {
+      const tbody = document.getElementById('plan-tbody');
+      tbody.innerHTML = '';
+      rows.forEach(r => {
+        const tr = document.createElement('tr');
+        const lockBadge = r.isLocked 
+          ? `<span style="background:#FEF3C7; color:#92400E; font-size:9.5px; padding:1px 5px; border-radius:3px; font-weight:700; cursor:pointer;" onclick="toggleLock('${r.id}')">&#128274; Manual</span>` 
+          : `<span style="background:#E5E7EB; color:#4B5563; font-size:9.5px; padding:1px 5px; border-radius:3px; font-weight:700;">&#128275; Auto</span>`;
+
+        let unitsControl = r.unitType === 'fixed'
+          ? `<select class="tbl-select-units" onchange="onUserUnitsChange('${r.id}', this)">
+              <option value="0" ${r.unitsBooked === 0 ? 'selected' : ''}>0 (Off)</option>
+              <option value="1" ${r.unitsBooked === 1 ? 'selected' : ''}>1 ${r.unitLabel}</option>
+              <option value="2" ${r.unitsBooked === 2 ? 'selected' : ''}>2 ${r.unitLabel}s</option>
+              <option value="3" ${r.unitsBooked === 3 ? 'selected' : ''}>3 ${r.unitLabel}s</option>
+            </select>`
+          : `<span style="color:#15803D; font-weight:700; font-size:10.5px;">Flexible Rate</span>`;
+
+        let durationControl = r.unitType === 'flexible'
+          ? `<input type="number" min="1" max="${duration}" class="tbl-input-duration" value="${r.effectiveDuration}" onchange="onUserDurationChange('${r.id}', this)"> d`
+          : `<span style="font-size:11px;">${r.effectiveDuration}d</span>`;
+
+        let budgetControl = r.unitType === 'flexible'
+          ? `<input type="number" step="1000" class="tbl-input-budget" value="${r.allocatedBudget}" onchange="onUserBudgetChange('${r.id}', this)">`
+          : `<span style="font-weight:700; color:#073763;">${fmtMoney(r.allocatedBudget)}</span>`;
+
+        tr.innerHTML = `
+          <td><span class="tag ${r.tag}">${r.channel}</span></td>
+          <td><strong>${r.placement}</strong></td>
+          <td>${r.obj}</td>
+          <td>${r.displayRate}</td>
+          <td>${unitsControl}</td>
+          <td style="text-align:center;">${durationControl}</td>
+          <td style="text-align:right;">${budgetControl}</td>
+          <td style="text-align:right;">${r.estImps.toLocaleString()}</td>
+          <td style="text-align:right;">${r.estClicks.toLocaleString()}</td>
+          <td>${lockBadge}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('foot-budget').innerText = fmtMoney(totalBudgetSpent);
+      document.getElementById('foot-impressions').innerText = totalImpressions.toLocaleString();
+      document.getElementById('foot-clicks').innerText = totalClicks.toLocaleString();
+    }
+
+    function renderGantt(rows, maxDuration) {
+      const thead = document.getElementById('gantt-thead');
+      const tbody = document.getElementById('gantt-tbody');
+
+      let thHTML = '<tr><th style="text-align:left; min-width:170px;">Channel Placement</th>';
+      for (let d = 1; d <= maxDuration; d++) { thHTML += `<th>D${d}</th>`; }
+      thHTML += '</tr>';
+      thead.innerHTML = thHTML;
+
+      tbody.innerHTML = '';
+      rows.forEach(r => {
+        let trHTML = `<tr><td style="text-align:left; font-weight:600;">${r.placement} (${r.effectiveDuration}d)</td>`;
+        for (let d = 1; d <= maxDuration; d++) {
+          trHTML += d <= r.effectiveDuration ? `<td class="active-day">&#10003;</td>` : `<td>-</td>`;
+        }
+        trHTML += '</tr>';
+        tbody.innerHTML += trHTML;
+      });
+    }
+
+    // POPULATE 2-PAGE DOCUMENT VIEW (EXACT MATCH FOR SCREENSHOT 1 & 2)
+    function populateTwoPageDocument(rows, duration, totalBudgetSpent, totalImpressions, totalClicks) {
+      const brand = document.getElementById('brand-name').value || 'Brand';
+      const cat = getEffectiveCategory();
+      const campaign = document.getElementById('campaign-title').value || 'Campaign Activation';
+      const audience = document.getElementById('target-audience').value || 'Target Shoppers';
+      const competitors = document.getElementById('brand-competitors').value || 'Competitors';
+      const skus = document.getElementById('focus-skus').value || 'Hero Products';
+      const eventName = document.getElementById('event-type').value;
+
+      // Page 1 Metadata
+      document.getElementById('doc-p1-campaign').innerText = eventName;
+      document.getElementById('doc-p1-brand').innerText = `${brand} - ${campaign}`;
+      document.getElementById('doc-p1-audience').innerText = audience;
+      document.getElementById('doc-p1-category').innerText = cat;
+      document.getElementById('doc-p1-competitors').innerText = competitors;
+      document.getElementById('doc-p1-sku').innerText = skus;
+      document.getElementById('doc-p1-budget').innerText = fmtMoney(totalBudgetSpent);
+
+      // Page 2 Header Metadata
+      document.getElementById('doc-p2-brand').innerText = brand;
+      document.getElementById('doc-p2-budget').innerText = fmtMoney(totalBudgetSpent);
+      document.getElementById('doc-p2-event').innerText = eventName;
+      document.getElementById('doc-p2-duration').innerText = `${duration} Days`;
+      document.getElementById('doc-p2-gantt-label').innerText = duration;
+
+      // Page 2 Allocation Table
+      const p2Tbody = document.getElementById('doc-p2-tbody');
+      p2Tbody.innerHTML = '';
+      rows.forEach(r => {
+        let rowClass = 'bg-row-onsite';
+        if (r.channel === 'Display Ads') rowClass = 'bg-row-display';
+        else if (r.channel.includes('CRM')) rowClass = 'bg-row-crm';
+        else if (r.channel.includes('Sponsored')) rowClass = 'bg-row-spon';
+        else if (r.channel.includes('POM')) rowClass = 'bg-row-pom';
+
+        const tr = document.createElement('tr');
+        tr.className = rowClass;
+        tr.innerHTML = `
+          <td><strong>${r.channel}</strong></td>
+          <td>${r.placement}</td>
+          <td>${r.obj}</td>
+          <td>${r.displayRate}</td>
+          <td style="text-align:center;">${r.bookedVolumeLabel}</td>
+          <td style="text-align:center;">${r.effectiveDuration} Days</td>
+          <td style="text-align:right; font-weight:bold;">${fmtMoney(r.allocatedBudget)}</td>
+          <td style="text-align:right;">${r.estImps.toLocaleString()}</td>
+          <td style="text-align:right;">${r.estClicks.toLocaleString()}</td>
+        `;
+        p2Tbody.appendChild(tr);
+      });
+
+      document.getElementById('doc-p2-tot-budget').innerText = fmtMoney(totalBudgetSpent);
+      document.getElementById('doc-p2-tot-imps').innerText = totalImpressions.toLocaleString();
+      document.getElementById('doc-p2-tot-clicks').innerText = totalClicks.toLocaleString();
+
+      // Page 2 Gantt Table
+      const docGanttThead = document.getElementById('doc-p2-gantt-thead');
+      const docGanttTbody = document.getElementById('doc-p2-gantt-tbody');
+
+      let ghHTML = '<tr><th style="text-align:left; min-width:180px;">Channel Placement</th>';
+      for (let d = 1; d <= duration; d++) { ghHTML += `<th>D${d}</th>`; }
+      ghHTML += '</tr>';
+      docGanttThead.innerHTML = ghHTML;
+
+      docGanttTbody.innerHTML = '';
+      rows.forEach(r => {
+        let gtr = `<tr><td style="text-align:left; font-weight:bold; background:#FFF;">${r.placement} (${r.effectiveDuration}d)</td>`;
+        for (let d = 1; d <= duration; d++) {
+          gtr += d <= r.effectiveDuration ? `<td style="background:#8EA9DB; color:#073763; font-weight:bold;">X</td>` : `<td style="background:#F2F2F2; color:#AAA;">-</td>`;
+        }
+        gtr += '</tr>';
+        docGanttTbody.appendChild(document.createRange().createContextualFragment(gtr));
+      });
+    }
+
+    // PRINT AS PDF (TRIGGER BROWSER DIALOG DIRECTLY CONFIGURING 2 PAGES)
+    function triggerTwoPagePDF() {
+      window.print();
+    }
+
+    // EXPORT EXCEL FORMATTED TABLE (.XLS WITH EXACT COLORS)
+    function exportExcelHtml() {
+      const brand = document.getElementById('brand-name').value || 'Brand';
+      const docView = document.getElementById('export-document-view');
+      const htmlContent = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+        <head>
+          <meta charset="utf-8">
+          <style>
+            table { border-collapse: collapse; font-family: Arial; font-size: 11px; }
+            th { background-color: #073763; color: white; border: 1px solid #777; padding: 6px; }
+            td { border: 1px solid #777; padding: 5px; }
+            .bg-row-onsite { background-color: #8EA9DB; }
+            .bg-row-display { background-color: #C6E0B4; }
+            .bg-row-crm { background-color: #FFE699; }
+            .bg-row-spon { background-color: #D9D2E9; }
+            .bg-row-pom { background-color: #F8CBAD; }
+            .bg-row-brandday { background-color: #D5A6BD; }
+          </style>
+        </head>
+        <body>
+          ${docView.innerHTML}
+        </body>
+        </html>
+      `;
+      const blob = new Blob([htmlContent], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `${brand.replace(/\s+/g, '_')}_Jumia_Media_Plan_2026.xls`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function exportPlanCSV() {
+      const brand = document.getElementById('brand-name').value || 'Brand';
+      const cat = getEffectiveCategory();
+      let csv = 'Channel,Placement,Category,Objective,Rate Card,Booked Units,Flight Days,Allocated Budget,Est Impressions,Est Clicks\n';
+      currentCalculatedRows.forEach(r => {
+        csv += `"${r.channel}","${r.placement}","${cat}","${r.obj}","${r.displayRate}","${r.bookedVolumeLabel}",${r.effectiveDuration},${Math.round(r.allocatedBudget)},${r.estImps},${r.estClicks}\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `${brand.replace(/\s+/g, '_')}_Jumia_Media_Plan.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // INITIALIZE
+    calculatePlan();
+  </script>
+</body>
+</html>
